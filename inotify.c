@@ -19,8 +19,10 @@ int read_process_inotify_fd(int fd)
     int event_pos = 0;
     struct inotify_event *event;
 	
-	/* read */	
+	/* read */
+	printf("read mINotifyFd blocking . . .\n");
     res = read(fd, event_buf, sizeof(event_buf));
+	printf("read mINotifyFd blocked.\n");
 
     if(res < (int)sizeof(*event)) {
         if(errno == EINTR)
