@@ -104,7 +104,7 @@ int read_process_inotify_fd(int mINotifyFd, int mEpollFd)
 				sprintf(name, "%s/%s", base_dir, event->name);
 				int tmpFd = open(name, O_RDWR);
 
-				printf("add to epoll: %s\n", name);
+				printf("add to epoll: %s --> %d(fd)\n", name,tmpFd);
 				add_to_epoll(tmpFd, mEpollFd);
 
 				epoll_files[tmpFd] = name;
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
 			}
 			else
 			{
-				printf("Reason: 0x%x\n", mPendingEventItems[i].events);
+				printf("Reason: 0x%x , fd -> %d\n",mPendingEventItems[i].events,mPendingEventItems[i].data.fd);
 				int len = read(mPendingEventItems[i].data.fd, buf, DATA_MAX_LEN);
 				buf[len] = '\0';
 				printf("get data: %s\n", buf);
